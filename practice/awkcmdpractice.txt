@@ -1,0 +1,131 @@
+cat /etc/os-release
+NAME="Ubuntu"
+VERSION="20.04.6 LTS (Focal Fossa)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 20.04.6 LTS"
+VERSION_ID="20.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=focal
+UBUNTU_CODENAME=focal
+
+cat /etc/os-release | awk -F = '{print $1}'
+NAME
+VERSION
+ID
+ID_LIKE
+PRETTY_NAME
+VERSION_ID
+HOME_URL
+SUPPORT_URL
+BUG_REPORT_URL
+PRIVACY_POLICY_URL
+VERSION_CODENAME
+UBUNTU_CODENAME
+
+awk  'NR==4' /etc/os-release
+ID_LIKE=debian
+
+awk '{a=$1 ; b=$2 ; print "a="a ,"b="b }' ab.txt 
+a=2 b=5
+a=4 b=6
+
+cat /etc/os-release | awk '/ID/{print $0}'
+ID=ubuntu
+ID_LIKE=debian
+VERSION_ID="20.04"
+
+cat /etc/os-release | awk 'NR==4 {print NR, $0}'
+4 ID_LIKE=debian
+
+cat /etc/os-release | awk 'NR==1, NR==5 {print NR, $0}'
+1 NAME="Ubuntu"
+2 VERSION="20.04.6 LTS (Focal Fossa)"
+3 ID=ubuntu
+4 ID_LIKE=debian
+5 PRETTY_NAME="Ubuntu 20.04.6 LTS"
+
+cat /etc/os-release | awk '$1 ~ /ID/ {print NR, $0}'
+3 ID=ubuntu
+4 ID_LIKE=debian
+6 VERSION_ID="20.04"
+
+cat /etc/os-release | awk  'BEGIN{IGNORECASE=1} /id|home_url/ {print NR, $0}'
+3 ID=ubuntu
+4 ID_LIKE=debian
+6 VERSION_ID="20.04"
+7 HOME_URL="https://www.ubuntu.com/"
+
+ls -lt | awk 'NR>1 {print $NF}'
+awkcmdpractice.txt
+read_values.sh
+1stawkscript.awk
+
+awk 'BEGIN{sum=0} {sum=sum+$NF} END{print "SUM of salary: " sum}' sample.txt 
+SUM of salary: 5525.69
+
+awk '{sum=sum+$NF} END{print "SUM of salary: " sum}' sample.txt 
+SUM of salary: 5525.69
+
+awk '{count++} END{print "Total No Of Employess are : " count }' sample.txt 
+Total No Of Employess are : 10  # printing both header and empty lines
+
+awk 'NR>1 {if($NF>0)count++} END{print "Total No Of Employess are : " count }' sample.txt 
+Total No Of Employess are : 8  # required result
+
+awk 'NR>1 {if($NF>0)count++; sum+=$NF} END{print "Average salary : " sum/count}' sample.txt 
+Average salary : 625.433
+
+awk 'NR>1 {if($NF>0)count++;sum+=$NF} END{print "Average salary : ₹" sum/count}' sample.txt # ctrl+alt+4 
+Average salary : ₹625.433
+
+awk '{} END{print "No of lines = " NR}' sample.txt 
+No of lines = 10
+
+awk '{print length($0)}' sample.txt  # print length of lines
+52 
+66
+63
+67
+60
+70
+75
+78
+71
+1
+
+awk '{if(length($0)>max)max=length($0)} END{print "Length of longest line is : " max}' sample.txt 
+Length of longest line is : 78
+
+awk '{print $NF}' sample.txt 
+salary
+852.38
+498.82
+99.35
+986.95
+344.32
+826.93
+862.09
+532.62
+
+
+awk '{if($NF>800)$7="High";else $7="Low";print $0}' sample.txt 
+id firstname lastname email profession salary High
+100 Fidelia Vharat Fidelia.Vharat@yopmail.com doctor 852.38 High
+101 Dolli Holtz Dolli.Holtz@yopmail.com developer 498.82 Low
+102 Maridel Sasnett Maridel.Sasnett@yopmail.com worker 99.35 Low
+103 Merry Oscar Merry.Oscar@yopmail.com doctor 986.95 High
+104 Tomasina Jalbert Tomasina.Jalbert@yopmail.com doctor 344.32 Low
+105 Brianna Lucienne Brianna.Lucienne@yopmail.com firefighter 826.93 High
+106 Konstance Wattenberg Konstance.Wattenberg@yopmail.com worker 862.09 High
+107 Dianemarie Colp Dianemarie.Colp@yopmail.com developer 532.62 Low
+      Low
+
+awk '{if($5=="doctor")sum=$NF} END{print "Total salary in doct. dept :₹"sum}' sample.txt 
+Total salary in doct. dept :₹344.32     # last doc salary
+
+awk '{if($5=="doctor")sum+=$NF} END{print "Total salary in doct. dept :₹"sum}' sample.txt 
+Total salary in doct. dept :₹2183.65    
