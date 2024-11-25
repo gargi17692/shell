@@ -14,3 +14,6 @@ echo "This is fouth line"
 echo
 
 [[ -x filecrn.sh ]] && echo "file has execution permission" || echo "file don't have execution permission"
+
+# cat /etc/os-release | grep -w "NAME" | awk -F "NAME=" '{print $2}' | tr '"' ' '
+# Ubuntu 

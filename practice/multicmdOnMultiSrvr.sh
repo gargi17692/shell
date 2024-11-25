@@ -9,7 +9,7 @@ do
     for each_cmd in date uptime  "free -m"
     do
         echo "the $each_cmd command output on the server : $each_ser "
-        ssh -f pass ssh -o StrictKeyChecking=No automationUsr@each_ser "$each_cmd"
+        sshpass -f pass ssh -n -o StrictKeyChecking=No automationUsr@each_ser "$each_cmd" # -0 for parssing actions
         echo "====================================================="
     done
 done
