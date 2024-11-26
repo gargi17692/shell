@@ -25,36 +25,30 @@ else
 fi
 
 declare -a git_vers
-echo "************************ Please wait collecting all versions of git form git official website *************************"
+echo "***** Please wait collecting all git versions form index.html file *****"
 while read line
 do
     #echo $line | sed -n '/git-\([0-9]\+\.\)\+tar.gz/p' | awk -F '"' '{print $2}' | cut -c 5- | awk -F '.tar.gz' '{print $1}'
     git_vers+=($(echo $line | sed -n '/git-\([0-9]\+\.\)\+tar.gz/p' | awk -F '"' '{print $2}' | cut -c 5- | awk -F '.tar.gz' '{print $1}'))
 done < index.html
 
-echo "The available git versions are : "
-echo "${git_vers[*]}"
-
-# cnt=0
-# no_vars=${#git_vers[*]}
-# WIDTH=20
-# for each_ver in ${git_vers[*]}
-# do
-#     #echo -e "\t\t ${git_vers[$cnt]} \\t ${git_vers[$((cnt+1))]} \\t ${git_vers[$((cont+2))]}"
-#     printf "%-*s %-*s %-*s\n" $WIDTH ${git_vers[$cnt]} $WIDTH ${git_vers[$((cnt+1))]} $WIDTH ${git_vers[$((cont+2))]}
-#     cnt=$((cnt+3))
-#     if [[ $cnt -ge $no_vars ]]
-#     then
-#         break
-#     fi
-# done
+# echo "The available git versions are : "
+# echo "${git_vers[*]}"
 
 cnt=0
-
-for each_ver in ${git_vers[*]}  
+no_vers=${#git_vers[*]}
+# echo "No of available git versions are : $no_vers"
+WIDTH=10
+for each_ver in ${git_vers[*]}
 do
-    echo -e "\t\t ${git_vers[$cnt] \\t ${git_vers[$((cnt+1))]} \\t ${git_vers[$((cnt+2))]}"
-    cnt=$((cnt+3))
+    #echo -e "\t\t ${git_vers[$cnt]} \\t ${git_vers[$((cnt+1))]} \\t ${git_vers[$((cnt+2))]}"
+    printf "%-*s %-*s %-*s %-*s %-*s %-*s %-*s %-*s\n" $WIDTH ${git_vers[$cnt]} $WIDTH ${git_vers[$((cnt+1))]} $WIDTH ${git_vers[$((cnt+2))]} $WIDTH ${git_vers[$((cnt+3))]} $WIDTH ${git_vers[$((cnt+4))]} $WIDTH ${git_vers[$((cnt+5))]} 
+    cnt=$((cnt+6))
+    if [ $cnt -ge $no_vers ]
+    then
+        break
+    fi
 done
+
 
 
