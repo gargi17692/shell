@@ -91,7 +91,7 @@ display_all_available_git_versions() {
     prHeader "="
 }
 display_existing_git_info() {
-    which git 1>/dev/null 2>$1
+    which git 1>/dev/null 2>&1
     if [ $? -ne 0 ]
     then
         prCyan "$(get_date_time) select git version to install"
@@ -139,8 +139,8 @@ install_update_git() {
         tar -xvzf git-${req_git}.tar.gz
     fi
     which gcc 1>/dev/null 2>/dev/null || apt install gcc -y
-    cd git-${req_git}; ./configure ; make ; make inatall
-
+    cd git-${req_git}; ./configure ; make clean; make prefix=/usr/local all ; make prefix=/usr/local install
+    
 }
 
 main() {
@@ -183,10 +183,11 @@ main() {
     fi
 }
 
-if [ "${USER}" != "codespace" ]
+if [ "${USER}" != "root" ]
 then
     prRed "$(get_date_time) Please run this script with $(id -un) user"
     exit 1
 else
     main
+    prHeader "="
 fi
