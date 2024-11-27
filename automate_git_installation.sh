@@ -90,6 +90,17 @@ display_all_available_git_versions() {
     done
     prHeader "="
 }
+display_existing_git_info() {
+    which git 1>/dev/null 2>$1
+    if [ $? -ne 0 ]
+    then
+        prCyan "$(get_date_time) select git version to install"
+        return 0
+    fi
+    git_ver=$(git --version | awk '{print $3}')
+    prCyan "$(get_date_time) The existing git version : $git_ver "
+    return 1
+}
 display_current_host_git_version() {
     which git 1>/dev/null 2>&1
      if [ $? -eq 0 ]
@@ -140,8 +151,36 @@ main() {
     prCyan "$(get_date_time) Checking all available git versions from official git-scm website. Please Wait.... "
     download_official_git_version_info
     display_all_available_git_versions
-    display_current_host_git_version
-    
+    display_existing_git_info
+    if [ $? -eq 0 ]
+    then
+        read -p "$(get_date_time) Enter your required git version to install: " GIT_TO_INSTALL
+        install_update_git $GIT_TO_INSTALL
+        display_current_host_git_version
+    else
+        read -e -i no -p "$(get_date_time) Do you want to upgrade/downgrade ? (yes/no)" GIT_CNF
+        GIT_CNF=${GIT_CNF,,}
+        if [ "${GIT_CNF}" == "yes" ]
+        then
+            read -e -i ${git_ver} -p "$(get_date_time) Enter Your required git version to Install" GIT_TO_INSTALL
+            if [ "${GIT_TO_INSTALL}" == "${git_ver}" ]
+            then
+                prRed "$(get_date_time) Thank You for using $0 script"
+                prHeader "="
+                exit 0
+            fi
+            if [ "${GIT_TO_INSTALL}" \< "${git_ver}" ]
+            then
+                prGreen "$(get_date_time) Downgrading existing git ${git_ver} to rquired git ${GIT_TO_INSTALL}, Please Wait..."
+                install_update_git $GIT_TO_INSTALL
+                display_current_host_git_version
+                prHeader "="
+                exit 0
+            fi
+        else 
+            prGreen "$(get_date_time) Thank you for using $0 script"
+        fi
+    fi
 }
 
 if [ "${USER}" != "codespace" ]

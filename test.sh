@@ -45,4 +45,8 @@ echo
 # done
 
 
+git_ver=$(git --version | awk  '{print $3}')
+read -e -i ${git_ver} -p "enter a word , (yes/no)" GIT_TO_INSTALL
 
+echo "${git_ver}"
+echo "${GIT_TO_INSTALL}"
