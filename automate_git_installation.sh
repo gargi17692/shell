@@ -158,11 +158,11 @@ main() {
         install_update_git $GIT_TO_INSTALL
         display_current_host_git_version
     else
-        read -e -i no -p "$(get_date_time) Do you want to upgrade/downgrade ? (yes/no)" GIT_CNF
+        read -e -i no -p "$(get_date_time) Do you want to upgrade/downgrade ? (yes/no) " GIT_CNF
         GIT_CNF=${GIT_CNF,,}
         if [ "${GIT_CNF}" == "yes" ]
         then
-            read -e -i ${git_ver} -p "$(get_date_time) Enter Your required git version to Install" GIT_TO_INSTALL
+            read -e -i ${git_ver} -p "$(get_date_time) Enter Your required git version to Install " GIT_TO_INSTALL
             if [ "${GIT_TO_INSTALL}" == "${git_ver}" ]
             then
                 prRed "$(get_date_time) Thank You for using $0 script"
@@ -189,5 +189,4 @@ then
     exit 1
 else
     main
-    prHeader "="
 fi
