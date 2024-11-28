@@ -45,8 +45,40 @@ echo
 # done
 
 
-git_ver=$(git --version | awk  '{print $3}')
-read -e -i ${git_ver} -p "enter a word , (yes/no)" GIT_TO_INSTALL
+# git_ver=$(git --version | awk  '{print $3}')
+# read -e -i ${git_ver} -p "enter a word , (yes/no)" GIT_TO_INSTALL
 
-echo "${git_ver}"
-echo "${GIT_TO_INSTALL}"
+# echo "${git_ver}"
+# echo "${GIT_TO_INSTALL}"
+
+# locate display_line.sh
+# find -name display_line.sh
+# find -name test.sh
+# dmidecode
+# lscpu
+# lscpu > test.txt
+# cat test.txt
+# head -5 test.txt  
+# head -1 test.txt 
+file test.sh
+df -h
+du -h practice
+netstat
+netstat -tln
+netstat -putan | grep :22 # to check a port available or not
+
+netstat -i
+Kernel Interface table
+Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
+docker0   1500        0      0      0 0             0      0      0      0 BMU
+eth0      1500 16287259      0      0 0        373903      0      0      0 BMRU
+lo       65536    25136      0      0 0         25136      0      0      0 LRU
+
+ls -lh
+tar -cvf backup.tar backup/
+gzip backup.tar
+tar -xvf backup.tar.gz
+tar -czvf backup.tar.gz backup
+tar -xzvf backup.tar.gz backup
+tar -tzvf backup.tar.gz # to see what inside the tarzip file
+zcat file1.txt.gz

@@ -1,0 +1,2 @@
+S_No, SERVER_NAME, IP_ADDRESS, OS_TYPE, OS_NAME, UPTIME, OS_Version, ARC_Type, CPU_Type
+1, codespaces-dba4d1, 10.0.0.199, Linux, Ubuntu, 2:29, 20.04, x86_64,  AMD EPYC 7763 64-Core Processor
